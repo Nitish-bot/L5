@@ -2365,6 +2365,8 @@ function endShape(_close)
 
   -- draw seperated triangles
   if L5_env.kind == TRIANGLES then
+
+    
     local verts = L5_env.vertices
     if type(verts[1]) == "number" then
       local converted = {}
@@ -2373,6 +2375,15 @@ function endShape(_close)
       end
       verts = converted
     end
+    
+    if L5_env.useTexture and L5_env.currentTexture then
+      local mesh = love.graphics.newMesh(verts, TRIANGLES)
+      mesh:setTexture(L5_env.currentTexture)
+      L5_env.currentTexture:setWrap(L5_env.textureWrap, L5_env.textureWrap)
+      love.graphics.draw(mesh)
+      return
+    end
+    
 
     if L5_env.fill_mode == "fill" then
       local mesh = love.graphics.newMesh(verts, TRIANGLES)
@@ -2404,6 +2415,14 @@ function endShape(_close)
       verts = converted
     end
 
+    if L5_env.useTexture and L5_env.currentTexture then
+      local mesh = love.graphics.newMesh(verts, TRIANGLE_STRIP)
+      mesh:setTexture(L5_env.currentTexture)
+      L5_env.currentTexture:setWrap(L5_env.textureWrap, L5_env.textureWrap)
+      love.graphics.draw(mesh)
+      return
+    end
+
     if L5_env.fill_mode == "fill" then
       local mesh = love.graphics.newMesh(verts, TRIANGLE_STRIP)
       love.graphics.draw(mesh)
@@ -2424,6 +2443,7 @@ function endShape(_close)
 
   -- draw triangles centered around the first vertex
   if L5_env.kind == TRIANGLE_FAN then
+    
     local verts = L5_env.vertices
     if type(verts[1]) == "number" then
       local converted = {}
@@ -2432,7 +2452,14 @@ function endShape(_close)
       end
       verts = converted
     end
-
+    
+    if L5_env.useTexture and L5_env.currentTexture then
+      local mesh = love.graphics.newMesh(verts, TRIANGLE_FAN)
+      mesh:setTexture(L5_env.currentTexture)
+      L5_env.currentTexture:setWrap(L5_env.textureWrap, L5_env.textureWrap)
+      love.graphics.draw(mesh)
+      return
+    end
     if L5_env.fill_mode == "fill" then
       local mesh = love.graphics.newMesh(verts, TRIANGLE_FAN)
       love.graphics.draw(mesh)
