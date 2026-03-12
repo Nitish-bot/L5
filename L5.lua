@@ -830,9 +830,6 @@ function defaults()
   TRIANGLES = "triangles"
   TRIANGLE_FAN = "fan"
   TRIANGLE_STRIP = "strip"
-  QUADS = "quads"
-  QUAD_STRIP = "quad_strip"
-  TESS = "tess"
 
   -- global user vars - can be read by user but shouldn't be altered by user
   key = "" --default, overriden with key presses detected in love.update(dt)
@@ -903,6 +900,11 @@ function define_env_globals()
   -- custom shape drawing 
   L5_env.vertices = {}
   L5_env.kind = nil
+  L5_env.shapeKinds = {[POINTS] = true, [LINES] = true, [TRIANGLES]=true, [TRIANGLE_FAN]=true, [TRIANGLE_STRIP]=true}
+  L5_env.mesh = love.graphics.newMesh(
+    {{"VertexPosition", "float", 2}},
+    4096, "triangles", "dynamic"
+  ) -- reusable mesh for non-texture shapes
   -- custom texture mesh
   L5_env.currentTexture = nil
   L5_env.useTexture = false
@@ -2311,7 +2313,23 @@ function textureWrap(_mode)
     end
 end
 
-function beginShape(_kind)
+function beginShape(...)
+
+  local n = select('#' , ...)
+  if(n > 1) then
+     error("beginShape(kind) accepts at most one argument", 2)
+  end
+
+  local _kind = select(1, ...)
+
+  if n == 0 then
+    _kind = nil
+  elseif _kind == nil then
+    error("This kind is not defined (undefined variable passed)")
+  elseif not L5_env.shapeKinds[_kind] then -- if any other type is passed
+    error("Invalid kind: " .. tostring(_kind))
+  end
+
   -- reset custom shape vertices table
   L5_env.vertices = {}
   L5_env.useTexture = false
@@ -2333,6 +2351,18 @@ function vertex(_x, _y, _u, _v)
       table.insert(L5_env.vertices, _x)
       table.insert(L5_env.vertices, _y)
     end
+end
+
+-- helper function to convert flat {x,y,x,y...} to {{x,y},{x,y}...}
+function toVertTable(verts)
+  if type(verts[1]) == "number" then
+    local converted = {}
+    for i = 1, #verts, 2 do
+      converted[#converted+1] = {verts[i], verts[i+1]}
+    end
+    return converted
+  end
+  return verts
 end
 
 function endShape(_close)
