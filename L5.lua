@@ -411,6 +411,8 @@ function printToScreen(textSize)
 end
 
 function size(_w, _h)
+  -- do nothing if the window size hasn't changed
+  if _w == width and _h == height then return end
   -- must clear canvas before setMode
   love.graphics.setCanvas()
 
