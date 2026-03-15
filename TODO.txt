@@ -57,7 +57,7 @@
 * [X] ellipseMode doesn't seem to work? 
 * [X] imageMode(): add CORNERS mode
 * [X] add custom shape creation via createShape() (processing) / beginShape() (p5.js), vertex() and endShape() (using love2d polygon - pass vertices as table?)
-* [ ] improve beginShape to get feature parity with p5-processing with `kind`? at the very least, basic shape drawing should match basic examples on reference page.
+* [ ] Add QUADS, QUAD_STRIP, TESS support for kind parameter in beginShape
 
 ## Filter
 
