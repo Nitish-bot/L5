@@ -122,8 +122,6 @@ Some of the key files and folders you will see in the L5 folder are as follows:
 
 The other files and folders are either assets or other kinds of support files; in most cases, you shouldn't need to make any modifications.
 
-How the code works is that, Love2D is essentially a game engine, it provides the window, input handling, and rendering engine. While `L5.lua` wraps that in a familiar Processing-style api.
-
 ### Running examples
 
 1. Open one of the files in `L5/examples/`
