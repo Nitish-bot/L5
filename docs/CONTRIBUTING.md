@@ -6,6 +6,8 @@ Please be sure to review our [principles](https://github.com/L5lua/L5/blob/main/
 
 Check out the [contributor docs](https://l5lua.org/contributing/) for more in-depth details about contributing code, bug fixes, and documentation.
 
+If you're looking to contribute to the website, it's code lives in a separate repository at [L5lua/L5-webiste](https://github.com/L5lua/L5-website). This repository is strictly for the core library.
+
 ## Contributor Guidelines
 
 The following are some key points to keep in mind when contributing to L5:
@@ -133,3 +135,5 @@ The other files and folders are either assets or other kinds of support files; i
 This project does *not* accept fully AI-generated contributions. AI tools may be used assistively only. As a contributor, you should be able to understand and take responsibility for changes you make to the codebase.
 
 We maintain the same stance on AI usage as p5.js. Please read the [AI Usage Policy](https://github.com/processing/p5.js/blob/main/AI_USAGE_POLICY.md) before proceeding.
+
+In fact, a large portion of this doc is directly inspired from the [p5.js contributor guidlines](https://github.com/processing/p5.js/blob/main/contributor_docs/contributor_guidelines.md).
